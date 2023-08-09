@@ -2,10 +2,10 @@ import { UsersService } from './users.service';
 import { UserEntity } from 'src/entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ReponseUserDto } from './dto/response-user.dto';
+import { UserGuard } from 'src/user-guard/user-guard.guard';
 import { ReponseUserListDto } from './dto/response-user-list.dto';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-
 
 @ApiTags('Users')
 @Controller('users')
@@ -22,6 +22,7 @@ export class UsersController {
     }
 
     @Get("/:id")
+    @UseGuards(UserGuard)
     @ApiOperation({ summary: 'Get info about user by id' })
     @ApiOkResponse({ type: ReponseUserDto })
     async getUserInfo(@Param('id') id: string): Promise<UserEntity> {
@@ -29,6 +30,7 @@ export class UsersController {
     }
 
     @Get()
+    @UseGuards(UserGuard)
     @ApiOperation({ summary: 'Get all users' })
     @ApiOkResponse({ type: [ReponseUserListDto] })
     async getUserList(): Promise<UserEntity[]> {
