@@ -1,6 +1,7 @@
 import { BookEntity } from "./book.entity";
-import { Entity, Column, OneToOne, JoinColumn } from "typeorm"
+import { hashing } from "src/utils/helper";
 import { BaseModelEntity } from "./base.model.entity";
+import { Entity, Column, OneToOne, JoinColumn, BeforeInsert } from "typeorm"
 
 @Entity('users')
 export class UserEntity extends BaseModelEntity {
@@ -22,4 +23,9 @@ export class UserEntity extends BaseModelEntity {
     @OneToOne(() => BookEntity)
     @JoinColumn({name:'book_id'})
     book: BookEntity;
+
+    @BeforeInsert()
+    async hashingPassword() {
+        this.password = await hashing(this.password);
+    }
 }
