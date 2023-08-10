@@ -17,6 +17,9 @@ export class ReponseUserListDto {
     @ApiProperty({example: 'ADMIN', enum:Roles})
     readonly role: string;
 
+    @ApiProperty({example: true})
+    readonly sctive: boolean;
+
     @ApiProperty({example: '2023-07-29 21:24:35.313657'})
     readonly created: string;
 
