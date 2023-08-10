@@ -1,14 +1,14 @@
-import { Entity, Column } from "typeorm"
-import { BaseModelEntity } from "./base.model.entity";
+import { Entity, Column } from 'typeorm';
+import { BaseModelEntity } from './base.model.entity';
 
-@Entity("books")
+@Entity('books')
 export class BookEntity extends BaseModelEntity {
-    @Column()
-    title: string;
+  @Column()
+  title: string;
 
-    @Column()
-    description: string;
+  @Column()
+  description: string;
 
-    @Column()
-    publisher: string;
+  @Column()
+  publisher: string;
 }

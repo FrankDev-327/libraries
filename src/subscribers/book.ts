@@ -1,47 +1,43 @@
-
-import { BookEntity } from "src/entities/book.entity";
-import { UsersService } from "src/users/users.service";
+import { BookEntity } from 'src/entities/book.entity';
+import { UsersService } from 'src/users/users.service';
 import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
-import { EventSubscriber, EntitySubscriberInterface, InsertEvent } from "typeorm"
+import {
+  EventSubscriber,
+  EntitySubscriberInterface,
+  InsertEvent,
+} from 'typeorm';
 
 @EventSubscriber()
 export class BookSubscriber implements EntitySubscriberInterface<BookEntity> {
-    private rabbitMQData: any; 
-    constructor(
-        private userService: UsersService
-    ){}
+  private rabbitMQData: any;
+  constructor(private userService: UsersService) {}
 
-    listenTo(): string | Function {
-        return BookEntity;
-    }
+  listenTo(): string | Function {
+    return BookEntity;
+  }
 
-    @RabbitSubscribe({
-        exchange: 'book.relation',
-        routingKey: 'book-relation-route',
-        queue: 'book-relation-queue',
-        queueOptions: {
-            durable: false,
-        },
-    })
-    async dispatchingUserInfo(dispatchedInfo){
-      this.rabbitMQData = dispatchedInfo;
-      console.log('rabbit');
-      console.log(this.rabbitMQData);
-      
-      
-    }
+  @RabbitSubscribe({
+    exchange: 'book.relation',
+    routingKey: 'book-relation-route',
+    queue: 'book-relation-queue',
+    queueOptions: {
+      durable: false,
+    },
+  })
+  async dispatchingUserInfo(dispatchedInfo) {
+    this.rabbitMQData = dispatchedInfo;
+    console.log('rabbit');
+    console.log(this.rabbitMQData);
+  }
 
-    async afterInsert(event: InsertEvent<BookEntity>): Promise<void> {
-        console.log('event');
-        
-        //console.log(this.rabbitMQData);
-        
-        /* const model = event.entity;
+  async afterInsert(event: InsertEvent<BookEntity>): Promise<void> {
+    console.log('event');
+
+    //console.log(this.rabbitMQData);
+
+    /* const model = event.entity;
         const user = await this.userService.getUserInfo(this.rabbitMQData.user_id);
         user.book = model; */
-        //await user.save();
-
-    }
-
-
+    //await user.save();
+  }
 }
