@@ -8,7 +8,6 @@ import { BooksModule } from './books/books.module';
 import { RabbitModule } from './rabbit/rabbit.module';
 import { HealthChecAppkModule } from './health-check/health-check.module';
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),

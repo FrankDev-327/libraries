@@ -7,14 +7,12 @@ import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-    constructor(
-        private authService: AuthService
-    ) {}
+  constructor(private authService: AuthService) {}
 
-    @Post()
-    @ApiOperation({ summary: 'Login user' })
-    @ApiOkResponse({ type: ResponseLogin })
-    async loginUser(@Body() dto: LoginUserDto): Promise<ResponseLogin> {
-        return await this.authService.login(dto);
-    }
+  @Post()
+  @ApiOperation({ summary: 'Login user' })
+  @ApiOkResponse({ type: ResponseLogin })
+  async loginUser(@Body() dto: LoginUserDto): Promise<ResponseLogin> {
+    return await this.authService.login(dto);
+  }
 }
