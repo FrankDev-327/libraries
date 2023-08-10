@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from 'src/entities/user.entity';
 
 @Injectable()
@@ -37,7 +37,8 @@ export class UsersService extends Repository<UserEntity> {
                 'email',
                 'created',
                 'updated'
-            ]
+            ],
+            relations:['book']
         });
     }
 }
