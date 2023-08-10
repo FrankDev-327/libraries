@@ -1,3 +1,4 @@
+import { BookSubscriber } from "src/subscribers/book";
 import { BookEntity } from "src/entities/book.entity";
 import { UserEntity } from "src/entities/user.entity";
 import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
@@ -11,6 +12,6 @@ export const typeormConfig: PostgresConnectionOptions = {
         BookEntity,
         UserEntity
     ],
-    subscribers:[],
+    subscribers:[BookSubscriber],
     logging: true
 }
