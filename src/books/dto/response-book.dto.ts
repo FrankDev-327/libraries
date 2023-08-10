@@ -1,6 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class ResponseBookDto {
+    @ApiProperty({example: 'a307d8fd-5cea-42cb-974a-05708d7db0ab'})
+    readonly id: string;
+
     @ApiProperty({example: 'Book title'})
     readonly title: string;
 

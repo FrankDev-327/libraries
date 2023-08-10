@@ -12,6 +12,8 @@ export const typeormConfig: PostgresConnectionOptions = {
         BookEntity,
         UserEntity
     ],
-    subscribers:[BookSubscriber],
+    subscribers:[
+        BookSubscriber
+    ],
     logging: true
 }
