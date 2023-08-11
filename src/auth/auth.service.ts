@@ -41,7 +41,7 @@ export class AuthService extends Repository<UserEntity> {
     return {
       token: await this.jwtService.signAsync({
         id: userData.id,
-        role: userData.role
+        role: userData.role,
       }),
     };
   }
