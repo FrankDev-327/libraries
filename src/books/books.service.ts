@@ -2,23 +2,17 @@ import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBookDto } from './dto/create-book.dto';
-import { BookEntity } from 'src/entities/book.entity';
+import { BookEntity } from '../entities/book.entity';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
-export class BooksService extends Repository<BookEntity> {
+export class BooksService {
   constructor(
     private userService: UsersService,
     @InjectRepository(BookEntity)
     private bookRepository: Repository<BookEntity>,
-  ) {
-    super(
-      bookRepository.target,
-      bookRepository.manager,
-      bookRepository.queryRunner,
-    );
-  }
+  ) {}
 
   async createBook(dto: CreateBookDto, currentUser): Promise<BookEntity> {
     let bookSaved, userId, user, bookCreated;
@@ -35,14 +29,8 @@ export class BooksService extends Repository<BookEntity> {
       user = await this.userService.getUserInfo(currentUser.id);
     }
 
-    let previousBook;
-    if (user.book) {
-      previousBook = user.book;
-    }
-
     user.book = bookSaved;
     await this.userService.updateInfo(user, userId);
-    await this.deleteInfo(previousBook);
     return bookSaved;
   }
 

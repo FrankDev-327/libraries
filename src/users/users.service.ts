@@ -1,27 +1,23 @@
 import { Repository } from 'typeorm';
-import { Roles } from 'src/enum/role.enum';
+import { Roles } from '../enum/role.enum';
+import { hashing } from '../utils/helper';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserEntity } from 'src/entities/user.entity';
+import { UserEntity } from '../entities/user.entity';
 import { UpdateStatusUserDto } from './dto/update-status.dto';
 
 @Injectable()
-export class UsersService extends Repository<UserEntity> {
+export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
-  ) {
-    super(
-      userRepository.target,
-      userRepository.manager,
-      userRepository.queryRunner,
-    );
-  }
+  ) {}
 
   async createUser(dto: CreateUserDto): Promise<UserEntity> {
     const userCreated = this.userRepository.create(dto);
+    userCreated.password = await hashing(userCreated.password);
     const userSaved = await this.userRepository.save(userCreated);
     return await this.getUserInfo(userSaved.id);
   }
@@ -47,6 +43,7 @@ export class UsersService extends Repository<UserEntity> {
     id: string = '',
   ): Promise<UserEntity> {
     let data;
+    dto.password = await hashing(dto.password);
     if (dto instanceof UserEntity) {
       await this.userRepository.update(dto.id, { ...dto });
       data = await this.getUserInfo(id);

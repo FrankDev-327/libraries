@@ -1,5 +1,5 @@
-import { BookEntity } from 'src/entities/book.entity';
-import { UsersService } from 'src/users/users.service';
+import { BookEntity } from '../entities/book.entity';
+import { UsersService } from '../users/users.service';
 import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import {
   EventSubscriber,

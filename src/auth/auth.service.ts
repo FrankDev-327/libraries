@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
-import { comparing } from 'src/utils/helper';
+import { comparing } from '../utils/helper';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoginUserDto } from './dto/login-user.dto';
-import { UserEntity } from 'src/entities/user.entity';
+import { UserEntity } from '../entities/user.entity';
 import { ResponseLogin } from './dto/response-login.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 

@@ -1,5 +1,5 @@
 import { BookEntity } from './book.entity';
-import { hashing } from 'src/utils/helper';
+import { hashing } from '../utils/helper';
 import { BaseModelEntity } from './base.model.entity';
 import {
   Entity,
@@ -43,7 +43,7 @@ export class UserEntity extends BaseModelEntity {
   @JoinColumn({ name: 'book_id' })
   book: BookEntity;
 
-  @BeforeUpdate()
+  /*   @BeforeUpdate()
   async hashingNewPassword() {
     this.password = await hashing(this.password);
   }
@@ -51,5 +51,5 @@ export class UserEntity extends BaseModelEntity {
   @BeforeInsert()
   async hashingPassword() {
     this.password = await hashing(this.password);
-  }
+  } */
 }

@@ -1,4 +1,3 @@
-import { BookSubscriber } from "src/subscribers/book";
 import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
 
 export const typeormConfig: PostgresConnectionOptions = {
@@ -7,8 +6,6 @@ export const typeormConfig: PostgresConnectionOptions = {
     ssl: true,
     synchronize: true,
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    subscribers:[
-        BookSubscriber
-    ],
+    subscribers:[],
     logging: true
 }
