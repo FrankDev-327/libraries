@@ -1,12 +1,12 @@
 import { BooksService } from './books.service';
-import { RoleGuard } from 'src/auth/role/role.guard';
-import { BookEntity } from 'src/entities/book.entity';
+import { RoleGuard } from '../auth/role/role.guard';
+import { BookEntity } from '../entities/book.entity';
 import { CreateBookDto } from './dto/create-book.dto';
-import { Roles } from 'src/auth/roles/roles.decorator';
-import { UsersService } from 'src/users/users.service';
+import { Roles } from '../auth/roles/roles.decorator';
+import { UsersService } from '../users/users.service';
 import { ResponseBookDto } from './dto/response-book.dto';
-import { UserGuard } from 'src/user-guard/user-guard.guard';
-import { currentUser } from 'src/current-user/current-user.decorator';
+import { UserGuard } from '../user-guard/user-guard.guard';
+import { currentUser } from '../current-user/current-user.decorator';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   Body,

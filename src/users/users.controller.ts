@@ -1,10 +1,10 @@
 import { UsersService } from './users.service';
-import { RoleGuard } from 'src/auth/role/role.guard';
-import { UserEntity } from 'src/entities/user.entity';
+import { RoleGuard } from '../auth/role/role.guard';
+import { UserEntity } from '../entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Roles } from 'src/auth/roles/roles.decorator';
+import { Roles } from '../auth/roles/roles.decorator';
 import { ReponseUserDto } from './dto/response-user.dto';
-import { UserGuard } from 'src/user-guard/user-guard.guard';
+import { UserGuard } from '../user-guard/user-guard.guard';
 import { ReponseUserListDto } from './dto/response-user-list.dto';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
@@ -20,7 +20,7 @@ import {
 } from '@nestjs/common';
 import { UpdateStatusUserDto } from './dto/update-status.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { currentUser } from 'src/current-user/current-user.decorator';
+import { currentUser } from '../current-user/current-user.decorator';
 
 @ApiTags('Users')
 @Controller('users')
