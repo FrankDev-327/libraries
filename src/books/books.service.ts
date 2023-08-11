@@ -3,15 +3,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBookDto } from './dto/create-book.dto';
 import { BookEntity } from 'src/entities/book.entity';
-import { UsersService } from 'src/users/users.service';
-import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class BooksService extends Repository<BookEntity> {
   constructor(
     private userService: UsersService,
-    private amqpConnection: AmqpConnection,
     @InjectRepository(BookEntity)
     private bookRepository: Repository<BookEntity>,
   ) {
@@ -22,21 +20,29 @@ export class BooksService extends Repository<BookEntity> {
     );
   }
 
-  async createBook(dto: CreateBookDto, userId: string): Promise<BookEntity> {
-    const bookCreated = this.bookRepository.create(dto);
-    /*         await this.amqpConnection.publish(
-            'book.relation',
-            'book-relation-route',
-            'book-relation-queue',
-            {
-                user_id: userId
-            }
-        ); */
-    const user = await this.userService.getUserInfo(userId);
-    const bookSaved = await this.bookRepository.save(bookCreated);
-    user.book = bookSaved;
-    await this.userService.updateInfo(user);
+  async createBook(dto: CreateBookDto, currentUser): Promise<BookEntity> {
+    let bookSaved, userId, user, bookCreated;
 
+    if (dto.userId !== '') {
+      userId = dto.userId;
+      bookCreated = this.bookRepository.create(dto);
+      bookSaved = await this.bookRepository.save(bookCreated);
+      user = await this.userService.getUserInfo(dto.userId);
+    } else {
+      userId = currentUser.id;
+      bookCreated = this.bookRepository.create(dto);
+      bookSaved = await this.bookRepository.save(bookCreated);
+      user = await this.userService.getUserInfo(currentUser.id);
+    }
+
+    let previousBook;
+    if (user.book) {
+      previousBook = user.book;
+    }
+
+    user.book = bookSaved;
+    await this.userService.updateInfo(user, userId);
+    await this.deleteInfo(previousBook);
     return bookSaved;
   }
 
@@ -48,9 +54,23 @@ export class BooksService extends Repository<BookEntity> {
     return await this.bookRepository.find();
   }
 
-  async updateInfo(dto: UpdateBookDto, id: string): Promise<BookEntity> {
-    await this.bookRepository.update(id, { ...dto });
-    return await this.getDetails(id);
+  async updateInfo(
+    dto: UpdateBookDto,
+    id: string,
+    currentUser,
+  ): Promise<BookEntity> {
+    let _id;
+    if (id !== undefined) {
+      _id = id;
+      await this.bookRepository.update(id, { ...dto });
+    } else {
+      const user = await this.userService.getUserInfo(currentUser.id);
+      Object.assign(user.book, { ...dto });
+      _id = user.book.id;
+      await this.bookRepository.save(user.book);
+    }
+
+    return await this.getDetails(_id);
   }
 
   async deleteInfo(dto: BookEntity): Promise<BookEntity> {

@@ -8,17 +8,24 @@ import {
   JoinColumn,
   BeforeInsert,
   AfterUpdate,
+  BeforeUpdate,
 } from 'typeorm';
 
 @Entity('users')
 export class UserEntity extends BaseModelEntity {
-  @Column()
+  @Column({
+    nullable: true,
+  })
   name: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   lastName: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   email: string;
 
   @Column()
@@ -36,9 +43,8 @@ export class UserEntity extends BaseModelEntity {
   @JoinColumn({ name: 'book_id' })
   book: BookEntity;
 
-  @AfterUpdate()
+  @BeforeUpdate()
   async hashingNewPassword() {
-    console.log('AfterUpdate');
     this.password = await hashing(this.password);
   }
 
