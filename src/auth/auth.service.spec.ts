@@ -37,6 +37,6 @@ describe('AuthService', () => {
       const auth = await service.login(payload);
       expect(auth).toEqual(tokenData);
       expect(spy).toHaveBeenCalledTimes(1);
-    })
+    });
   });
 });

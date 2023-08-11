@@ -53,7 +53,8 @@ export class UsersService {
         ...user,
         ...dto,
       });
-      data = await this.userRepository.save(saved);
+      await this.userRepository.save(saved);
+      data = await this.getUserInfo(user.id);
     }
 
     return data;
