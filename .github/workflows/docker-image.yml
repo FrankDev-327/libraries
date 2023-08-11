@@ -5,14 +5,28 @@ on:
     branches: [ "main", "dev" ]
 
 jobs:
+  install_pnpm:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+
   unit_test:
     runs-on: ubuntu-latest
+    needs: install_pnpm
     steps:
       - 
         uses: actions/checkout@v3
       -  
         name: Install modules
-        run: npm ci
+        run: |
+          if [ -e pnpm-lock.yaml ]; then
+          pnpm install
+          npm ci
+          fi
       -
         name: Run tests
         run: pnpm run test
