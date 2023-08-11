@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -24,8 +25,9 @@ jobs:
         name: Install modules
         run: |
           if [ -e pnpm-lock.yaml ]; then
-          pnpm install
-          npm ci
+            pnpm install
+          else  
+            npm ci
           fi
       -
         name: Run tests
