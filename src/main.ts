@@ -9,15 +9,17 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Q Assignment api')
     .setVersion('1.0')
-    .addBearerAuth(   {
-      type: 'http',
-      scheme: 'bearer',
-      bearerFormat: 'JWT',
-      name: 'JWT',
-      description: 'Enter JWT token',
-      in: 'header',
-    },
-    'JWT-auth',)
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
