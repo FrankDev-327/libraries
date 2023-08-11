@@ -6,7 +6,7 @@ import { Roles } from '../auth/roles/roles.decorator';
 import { ReponseUserDto } from './dto/response-user.dto';
 import { UserGuard } from '../user-guard/user-guard.guard';
 import { ReponseUserListDto } from './dto/response-user-list.dto';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
@@ -31,6 +31,7 @@ export class UsersController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Create a new user' })
   @ApiOkResponse({ type: ReponseUserDto })
+  @ApiBearerAuth('JWT-auth')
   @Post()
   async createUser(@Body() dto: CreateUserDto): Promise<UserEntity> {
     return await this.userSerive.createUser(dto);
@@ -40,6 +41,7 @@ export class UsersController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Get info about user by id' })
   @ApiOkResponse({ type: ReponseUserDto })
+  @ApiBearerAuth('JWT-auth')
   @Get('/:id')
   async getUserInfo(@Param('id') id: string): Promise<UserEntity> {
     const user = await this.userSerive.getUserInfo(id);
@@ -54,6 +56,7 @@ export class UsersController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Get all users' })
   @ApiOkResponse({ type: [ReponseUserListDto] })
+  @ApiBearerAuth('JWT-auth')
   @Get()
   async getUserList(): Promise<UserEntity[]> {
     return await this.userSerive.getUserList();
@@ -63,6 +66,7 @@ export class UsersController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Delete admin' })
   @ApiOkResponse({ type: ReponseUserDto })
+  @ApiBearerAuth('JWT-auth')
   @Delete('/admin/:id')
   async deleteAdmin(@Param('id') id: string): Promise<UserEntity> {
     const user = await this.userSerive.getUserInfo(id);
@@ -81,6 +85,7 @@ export class UsersController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Update status user' })
   @ApiOkResponse({ type: ReponseUserDto })
+  @ApiBearerAuth('JWT-auth')
   @Put('/status')
   async updateUserStatus(
     @currentUser() currentUser,
@@ -93,6 +98,7 @@ export class UsersController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Update status user' })
   @ApiOkResponse({ type: ReponseUserDto })
+  @ApiBearerAuth('JWT-auth')
   @Put('/:id?')
   async updateUserInfo(
     @Param('id') id: string,
@@ -105,6 +111,7 @@ export class UsersController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Delete all authors' })
   @ApiOkResponse({ type: [ReponseUserDto] })
+  @ApiBearerAuth('JWT-auth')
   @Delete('/del-authors')
   async deleteAllAuthors(@currentUser() currentUser): Promise<UserEntity[]> {
     return await this.userSerive.deleteAllAuthors(currentUser.id);

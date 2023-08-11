@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service';
 import { ResponseBookDto } from './dto/response-book.dto';
 import { UserGuard } from '../user-guard/user-guard.guard';
 import { currentUser } from '../current-user/current-user.decorator';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
@@ -33,6 +33,7 @@ export class BooksController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Create a new book' })
   @ApiOkResponse({ type: ResponseBookDto })
+  @ApiBearerAuth('JWT-auth')
   @Post()
   async createBook(
     @Body() dto: CreateBookDto,
@@ -45,6 +46,7 @@ export class BooksController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Get info about book by id' })
   @ApiOkResponse({ type: ResponseBookDto })
+  @ApiBearerAuth('JWT-auth')
   @Get('/:id')
   async getBookDetails(@Param('id') id: string): Promise<BookEntity> {
     const book = await this.bookService.getDetails(id);
@@ -59,6 +61,7 @@ export class BooksController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Get all books' })
   @ApiOkResponse({ type: [ResponseBookDto] })
+  @ApiBearerAuth('JWT-auth')
   @Get()
   async getBookList(): Promise<BookEntity[]> {
     return await this.bookService.getList();
@@ -68,6 +71,7 @@ export class BooksController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Update info about book by id' })
   @ApiOkResponse({ type: ResponseBookDto })
+  @ApiBearerAuth('JWT-auth')
   @Put('/:id?')
   async updateBookInfo(
     @Param('id') id: string,
@@ -81,6 +85,7 @@ export class BooksController {
   @UseGuards(UserGuard, RoleGuard)
   @ApiOperation({ summary: 'Delete book' })
   @ApiOkResponse({ type: ResponseBookDto })
+  @ApiBearerAuth('JWT-auth')
   @Delete('/:id?')
   async deleteBookInfo(
     @Param('id') id: string,
