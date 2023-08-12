@@ -13,7 +13,7 @@ import { UserEntity } from '../entities/user.entity';
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_KEY,
-      signOptions: { expiresIn: '30m' },
+      signOptions: { expiresIn: '30m' }, //TODO it can be changed. It was just for test purpose
     }),
   ],
   exports: [AuthService],

@@ -16,8 +16,8 @@ export class BooksService {
 
   async createBook(dto: CreateBookDto, currentUser): Promise<BookEntity> {
     let bookSaved, userId, user, bookCreated;
-
-    if (dto.userId !== '') {
+    //TODO this part was made like that because an ADMIN can create author's book or his own
+    if (dto.userId !== '') { 
       userId = dto.userId;
       bookCreated = this.bookRepository.create(dto);
       bookSaved = await this.bookRepository.save(bookCreated);
@@ -27,6 +27,12 @@ export class BooksService {
       bookCreated = this.bookRepository.create(dto);
       bookSaved = await this.bookRepository.save(bookCreated);
       user = await this.userService.getUserInfo(currentUser.id);
+    }
+
+    //TODO delete the previous user's book
+    const previousBook = user?.book;
+    if(previousBook) {
+      await this.deleteInfo(previousBook);
     }
 
     user.book = bookSaved;
@@ -47,6 +53,7 @@ export class BooksService {
     id: string,
     currentUser,
   ): Promise<BookEntity> {
+    //TODO this part was made like that because an ADMIN can update author's book or his own
     let _id;
     if (id !== undefined) {
       _id = id;

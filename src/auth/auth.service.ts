@@ -8,18 +8,12 @@ import { ResponseLogin } from './dto/response-login.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
-export class AuthService extends Repository<UserEntity> {
+export class AuthService {
   constructor(
     private jwtService: JwtService,
     @InjectRepository(UserEntity)
     private authRepository: Repository<UserEntity>,
-  ) {
-    super(
-      authRepository.target,
-      authRepository.manager,
-      authRepository.queryRunner,
-    );
-  }
+  ) {}
 
   async login(dto: LoginUserDto): Promise<ResponseLogin> {
     const userData = await this.authRepository.findOne({
@@ -38,6 +32,7 @@ export class AuthService extends Repository<UserEntity> {
       throw new NotFoundException(
         'This identification does not exsti or password is wrong.',
       );
+
     return {
       token: await this.jwtService.signAsync({
         id: userData.id,

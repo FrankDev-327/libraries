@@ -1,5 +1,5 @@
-import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
+import { Reflector } from '@nestjs/core';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -15,6 +15,7 @@ export class RoleGuard implements CanActivate {
     if (!roles) {
       return true;
     }
+
     const request = context.switchToHttp().getRequest();
     const user = request.user;
     return this.matchRoles(roles, user.role);

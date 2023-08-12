@@ -6,6 +6,20 @@
 $ pnpm install
 
 ```
+
+## Comments section
+To make it easier to find comments, you can install this plugin (if you use VSC) to find them faster.
+
+When installed, on the left side you will see a tree icon and there
+You will be able to see all the comments that were made, and if you click on any of them, it will take you to the comment itself.
+
+![Tree Tool](./TODOs.png)
+
+![Tree comments](./SideBarTODOs.png)
+
+## Env file
+Create a .env file and copy the content of .evn.example into it
+
 ## Create admin user through sql file
 
 ```bash
