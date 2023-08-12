@@ -1,11 +1,3 @@
-import { UsersService } from './users.service';
-import { RoleGuard } from '../auth/role/role.guard';
-import { UserEntity } from '../entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { Roles } from '../auth/roles/roles.decorator';
-import { ReponseUserDto } from './dto/response-user.dto';
-import { UserGuard } from '../user-guard/user-guard.guard';
-import { ReponseUserListDto } from './dto/response-user-list.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -23,8 +15,16 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { UpdateStatusUserDto } from './dto/update-status.dto';
+import { UsersService } from './users.service';
+import { RoleGuard } from '../auth/role/role.guard';
+import { UserEntity } from '../entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import { Roles } from '../auth/roles/roles.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ReponseUserDto } from './dto/response-user.dto';
+import { UserGuard } from '../user-guard/user-guard.guard';
+import { UpdateStatusUserDto } from './dto/update-status.dto';
+import { ReponseUserListDto } from './dto/response-user-list.dto';
 import { currentUser } from '../current-user/current-user.decorator';
 
 @ApiTags('Users')

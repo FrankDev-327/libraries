@@ -1,11 +1,11 @@
-import { BookEntity } from '../entities/book.entity';
-import { UsersService } from '../users/users.service';
-import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import {
   EventSubscriber,
   EntitySubscriberInterface,
   InsertEvent,
 } from 'typeorm';
+import { BookEntity } from '../entities/book.entity';
+import { UsersService } from '../users/users.service';
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 @EventSubscriber()
 export class BookSubscriber implements EntitySubscriberInterface<BookEntity> {

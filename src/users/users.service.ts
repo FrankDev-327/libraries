@@ -43,11 +43,12 @@ export class UsersService {
     id: string = '',
   ): Promise<UserEntity> {
     let data;
-    dto.password = await hashing(dto.password);
+    //TODO this part was made like that because an ADMIN can update author
     if (dto instanceof UserEntity) {
       await this.userRepository.update(dto.id, { ...dto });
       data = await this.getUserInfo(id);
     } else {
+      dto.password = await hashing(dto.password);
       const user = await this.getUserInfo(id);
       const saved = this.userRepository.create({
         ...user,
@@ -73,10 +74,10 @@ export class UsersService {
   }
 
   async deleteAllAuthors(id: string): Promise<UserEntity[]> {
-    const allUsers = await this.getUserList();
-    const userFilterIds = allUsers.filter(
-      (item) => item.id !== id && item.role === Roles.AUTHOR,
+    const allAuthors = await this.getUserList();
+    const authorFilteredIds = allAuthors.filter(
+      (item) => item.role === Roles.AUTHOR,
     );
-    return await this.userRepository.remove(userFilterIds);
+    return await this.userRepository.remove(authorFilteredIds);
   }
 }

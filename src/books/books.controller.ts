@@ -1,12 +1,3 @@
-import { BooksService } from './books.service';
-import { RoleGuard } from '../auth/role/role.guard';
-import { BookEntity } from '../entities/book.entity';
-import { CreateBookDto } from './dto/create-book.dto';
-import { Roles } from '../auth/roles/roles.decorator';
-import { UsersService } from '../users/users.service';
-import { ResponseBookDto } from './dto/response-book.dto';
-import { UserGuard } from '../user-guard/user-guard.guard';
-import { currentUser } from '../current-user/current-user.decorator';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -24,7 +15,16 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { BooksService } from './books.service';
+import { RoleGuard } from '../auth/role/role.guard';
+import { BookEntity } from '../entities/book.entity';
+import { CreateBookDto } from './dto/create-book.dto';
+import { Roles } from '../auth/roles/roles.decorator';
+import { UsersService } from '../users/users.service';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { ResponseBookDto } from './dto/response-book.dto';
+import { UserGuard } from '../user-guard/user-guard.guard';
+import { currentUser } from '../current-user/current-user.decorator';
 
 @ApiTags('Books')
 @Controller('books')
@@ -77,7 +77,7 @@ export class BooksController {
   @ApiOperation({ summary: 'Update info about book by id' })
   @ApiOkResponse({ type: ResponseBookDto })
   @ApiBearerAuth('JWT-auth')
-  @Put('/:id?')
+  @Put('/:id?')  //TODO optional parameter
   async updateBookInfo(
     @Param('id') id: string,
     @Body() dto: UpdateBookDto,
@@ -91,11 +91,12 @@ export class BooksController {
   @ApiOperation({ summary: 'Delete book' })
   @ApiOkResponse({ type: ResponseBookDto })
   @ApiBearerAuth('JWT-auth')
-  @Delete('/:id?')
+  @Delete('/:id?') //TODO optional parameter
   async deleteBookInfo(
     @Param('id') id: string,
     @currentUser() currentUser,
   ): Promise<BookEntity> {
+    //TODO this part was made like that because an ADMIN can delete author's book
     let _id = currentUser.id;
     if (id !== undefined) {
       _id = id;

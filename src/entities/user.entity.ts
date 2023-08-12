@@ -39,7 +39,9 @@ export class UserEntity extends BaseModelEntity {
   })
   active: boolean;
 
-  @OneToOne(() => BookEntity)
+  @OneToOne(() => BookEntity, {
+    createForeignKeyConstraints: false
+  })
   @JoinColumn({ name: 'book_id' })
   book: BookEntity;
 

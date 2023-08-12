@@ -1,8 +1,3 @@
-import { BooksService } from './books.service';
-import { UserEntity } from '../entities/user.entity';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { BookEntity } from '../entities/book.entity';
-import { Test, TestingModule } from '@nestjs/testing';
 import {
   generateBookData,
   generateBooksData,
@@ -10,6 +5,11 @@ import {
   generateCurrentUser,
   generateBookCreatePayload,
 } from '../../test/book.generate';
+import { BooksService } from './books.service';
+import { UserEntity } from '../entities/user.entity';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { BookEntity } from '../entities/book.entity';
+import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from '../users/users.service';
 
 const SECONDS = 1000;
