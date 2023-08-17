@@ -77,7 +77,7 @@ export class BooksController {
   @ApiOperation({ summary: 'Update info about book by id' })
   @ApiOkResponse({ type: ResponseBookDto })
   @ApiBearerAuth('JWT-auth')
-  @Put('/:id?')  //TODO optional parameter
+  @Put('/:id?') //TODO optional parameter
   async updateBookInfo(
     @Param('id') id: string,
     @Body() dto: UpdateBookDto,
