@@ -9,6 +9,7 @@ import {
   BeforeInsert,
   AfterUpdate,
   BeforeUpdate,
+  Index,
 } from 'typeorm';
 
 @Entity('users')
@@ -31,6 +32,7 @@ export class UserEntity extends BaseModelEntity {
   @Column()
   password: string;
 
+  @Index()
   @Column()
   role: string;
 

@@ -125,7 +125,7 @@ describe('UsersService', () => {
     const spy = jest
       .spyOn(service, 'deleteAllAuthors')
       .mockResolvedValueOnce(userData);
-    const users = await service.deleteAllAuthors(id);
+    const users = await service.deleteAllAuthors();
     expect(users).toEqual(userData);
     expect(spy).toHaveBeenCalledTimes(1);
   });
