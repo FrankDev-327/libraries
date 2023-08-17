@@ -119,6 +119,6 @@ export class UsersController {
   @ApiBearerAuth('JWT-auth')
   @Delete('/del-authors')
   async deleteAllAuthors(@currentUser() currentUser): Promise<UserEntity[]> {
-    return await this.userSerive.deleteAllAuthors(currentUser.id);
+    return await this.userSerive.deleteAllAuthors();
   }
 }

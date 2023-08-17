@@ -31,11 +31,22 @@ export class UsersService {
     return user;
   }
 
-  async getUserList(): Promise<UserEntity[]> {
-    return await this.userRepository.find({
-      select: ['id', 'role', 'name', 'email', 'active', 'created', 'updated'],
-      relations: ['book'],
-    });
+  async getUserList(query: any = null): Promise<UserEntity[]> {
+    let data: UserEntity[];
+    if(query !== null) {
+      data = await this.userRepository.find({
+        where: query,
+        select: ['id', 'role', 'name', 'email', 'active', 'created', 'updated'],
+        relations: ['book'],
+      });
+    } else {
+      data = await this.userRepository.find({
+        select: ['id', 'role', 'name', 'email', 'active', 'created', 'updated'],
+        relations: ['book'],
+      });
+    }
+
+    return data;
   }
 
   async updateInfo(
@@ -73,11 +84,8 @@ export class UsersService {
     return await this.userRepository.remove(dto);
   }
 
-  async deleteAllAuthors(id: string): Promise<UserEntity[]> {
-    const allAuthors = await this.getUserList();
-    const authorFilteredIds = allAuthors.filter(
-      (item) => item.role === Roles.AUTHOR,
-    );
-    return await this.userRepository.remove(authorFilteredIds);
+  async deleteAllAuthors(): Promise<UserEntity[]> {
+    const allAuthors = await this.getUserList({ role: Roles.AUTHOR });
+    return await this.userRepository.remove(allAuthors);
   }
 }
