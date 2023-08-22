@@ -33,7 +33,7 @@ export class UsersService {
 
   async getUserList(query: any = null): Promise<UserEntity[]> {
     let data: UserEntity[];
-    if(query !== null) {
+    if (query !== null) {
       data = await this.userRepository.find({
         where: query,
         select: ['id', 'role', 'name', 'email', 'active', 'created', 'updated'],
