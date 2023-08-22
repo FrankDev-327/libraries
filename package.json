@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "generate_admin": "psql postgres://renteriafrancisco51:hDg6JCLd1Yqk@ep-falling-shape-790103.us-east-2.aws.neon.tech/libraries -a -f ./init.sql",
+    "generate_admin": "psql [url database] -a -f ./init.sql",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
