@@ -29,10 +29,6 @@
       
       steps:
         - uses: actions/checkout@v3
-
-        - name: Installing pnpm packages
-          run: pnpm install
-
         - uses: dentarg/postgres@v1
         - run: psql ${{ secrets.DB_URL }} -a -f ./init.sql
           env: 
