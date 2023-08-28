@@ -51,7 +51,7 @@ jobs:
           fi
 
       - uses: dentarg/postgres@v1
-      - run: psql ${{ secrets.DB_URL }} -a -f ../../init.sql
+      - run: psql ${{ secrets.DB_URL }} -a -f ../init.sql
         env: 
           DATABASE_URL: "${{ secrets.DB_URL }}"
 
