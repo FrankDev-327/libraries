@@ -24,7 +24,8 @@ import { UsersService } from '../users/users.service';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { ResponseBookDto } from './dto/response-book.dto';
 import { UserGuard } from '../user-guard/user-guard.guard';
-import { currentUser } from '../current-user/current-user.decorator';
+import { UserLogged } from '../current-user/user.logged.decorator';
+import { CurrentUserDto } from 'src/current-user/dto/current.user.dto';
 
 @ApiTags('Books')
 @Controller('books')
@@ -42,7 +43,7 @@ export class BooksController {
   @Post()
   async createBook(
     @Body() dto: CreateBookDto,
-    @currentUser() currentUser,
+    @UserLogged() currentUser: CurrentUserDto,
   ): Promise<BookEntity> {
     return await this.bookService.createBook(dto, currentUser);
   }
@@ -81,7 +82,7 @@ export class BooksController {
   async updateBookInfo(
     @Param('id') id: string,
     @Body() dto: UpdateBookDto,
-    @currentUser() currentUser,
+    @UserLogged() currentUser: CurrentUserDto,
   ): Promise<BookEntity> {
     return await this.bookService.updateInfo(dto, id, currentUser);
   }
@@ -94,7 +95,7 @@ export class BooksController {
   @Delete('/:id?') //TODO optional parameter
   async deleteBookInfo(
     @Param('id') id: string,
-    @currentUser() currentUser,
+    @UserLogged() currentUser: CurrentUserDto,
   ): Promise<BookEntity> {
     //TODO this part was made like that because an ADMIN can delete author's book
     let _id = currentUser.id;

@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "generate_admin": "psql [url database] -a -f ./init.sql",
+    "generate_admin": "psql [url-database] -a -f ./init.sql",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.0.2",
-    "@golevelup/nestjs-rabbitmq": "^4.0.0",
     "@nestjs/axios": "^3.0.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.0.0",

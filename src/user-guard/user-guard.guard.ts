@@ -1,12 +1,11 @@
-import { Request } from 'express';
-import { Observable } from 'rxjs';
-import { JwtService } from '@nestjs/jwt';
 import {
   CanActivate,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { Request } from 'express';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserGuard implements CanActivate {

@@ -14,12 +14,12 @@ export function generateBookData(override = {}) {
   };
 }
 
-export function generateBooksData(n: number = 1) {
+export function generateBooksData(n = 1) {
   return Array.from(
     {
       length: n,
     },
-    (_, i) => {
+    () => {
       return generateBookData();
     },
   );

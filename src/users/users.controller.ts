@@ -25,7 +25,8 @@ import { ReponseUserDto } from './dto/response-user.dto';
 import { UserGuard } from '../user-guard/user-guard.guard';
 import { UpdateStatusUserDto } from './dto/update-status.dto';
 import { ReponseUserListDto } from './dto/response-user-list.dto';
-import { currentUser } from '../current-user/current-user.decorator';
+import { UserLogged } from '../current-user/user.logged.decorator';
+import { CurrentUserDto } from 'src/current-user/dto/current.user.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -93,7 +94,7 @@ export class UsersController {
   @ApiBearerAuth('JWT-auth')
   @Put('/status')
   async updateUserStatus(
-    @currentUser() currentUser,
+    @UserLogged() currentUser: CurrentUserDto,
     @Body() dto: UpdateStatusUserDto,
   ): Promise<UserEntity> {
     return await this.userSerive.updateStatus(dto, currentUser.id);
@@ -118,7 +119,7 @@ export class UsersController {
   @ApiOkResponse({ type: [ReponseUserDto] })
   @ApiBearerAuth('JWT-auth')
   @Delete('/del-authors')
-  async deleteAllAuthors(@currentUser() currentUser): Promise<UserEntity[]> {
+  async deleteAllAuthors(): Promise<UserEntity[]> {
     return await this.userSerive.deleteAllAuthors();
   }
 }
