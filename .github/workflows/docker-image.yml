@@ -53,7 +53,7 @@ jobs:
       - name: Install PostgreSQL client
         uses: docker://postgres:latest
         with:
-          args: apt-get update && apt-get install --yes postgresql-client
+          args: sudo apt-get update && sudo apt-get install --yes postgresql-client
 
       - name: inserting admin user into database
         run: psql ${{ secrets.DB_URL }} -a -f ../../init.sql
