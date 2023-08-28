@@ -40,7 +40,15 @@ jobs:
         env:
           PORT: ${{ secrets.PORT }}
           DB_URL: ${{ secrets.DB_URL }}
-        run: pnpm run start:dev
+        run: pnpm run start:dev & echo $! > api_pid.txt
+
+      - name: Stop the API
+        run: |
+          if [ -f api_pid.txt ]; then
+            pid=$(cat api_pid.txt)
+            kill "$pid"
+            rm api_pid.txt
+          fi
 
       - name: Install PostgreSQL client
         run: |
