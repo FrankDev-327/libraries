@@ -28,28 +28,6 @@ jobs:
     needs: installing_running_test
     
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Installing pnpm packages
-        run: pnpm install
-
-      - name: Run API to Create Tables
-        env:
-          PORT: ${{ secrets.PORT }}
-          DB_URL: ${{ secrets.DB_URL }}
-        run: pnpm run start:dev & echo $! > api_pid.txt
-
-      - name: Stop the API
-        run: |
-          if [ -f api_pid.txt ]; then
-            pid=$(cat api_pid.txt)
-            kill "$pid"
-            rm api_pid.txt
-          fi
-
       - uses: dentarg/postgres@v1
       - run: psql ${{ secrets.DB_URL }} -a -f ./init.sql
         env: 
