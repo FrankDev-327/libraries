@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS users (
   password VARCHAR NOT NULL,
   role VARCHAR NOT NULL,
   active BOOLEAN DEFAULT true,
-  book_id INT,
+  book_id UUID,
   FOREIGN KEY (book_id) REFERENCES books(id)
 );
 
