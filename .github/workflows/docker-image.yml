@@ -33,6 +33,9 @@ jobs:
         with:
           version: 8
 
+      - name: Installing pnpm packages
+        run: pnpm install
+
       - name: Run API to Create Tables
         run: pnpm run start:dev
 
