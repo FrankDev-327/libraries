@@ -1,16 +1,6 @@
+import { Entity, Column, OneToOne, JoinColumn, Index } from 'typeorm';
 import { BookEntity } from './book.entity';
-import { hashing } from '../utils/helper';
 import { BaseModelEntity } from './base.model.entity';
-import {
-  Entity,
-  Column,
-  OneToOne,
-  JoinColumn,
-  BeforeInsert,
-  AfterUpdate,
-  BeforeUpdate,
-  Index,
-} from 'typeorm';
 
 @Entity('users')
 export class UserEntity extends BaseModelEntity {
@@ -46,14 +36,4 @@ export class UserEntity extends BaseModelEntity {
   })
   @JoinColumn({ name: 'book_id' })
   book: BookEntity;
-
-  /*   @BeforeUpdate()
-  async hashingNewPassword() {
-    this.password = await hashing(this.password);
-  }
-
-  @BeforeInsert()
-  async hashingPassword() {
-    this.password = await hashing(this.password);
-  } */
 }

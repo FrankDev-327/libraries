@@ -19,12 +19,12 @@ export function generateAdminUserData(override = {}) {
   };
 }
 
-export function generateAdminsUsersData(n: number = 1) {
+export function generateAdminsUsersData(n = 1) {
   return Array.from(
     {
       length: n,
     },
-    (_, i) => {
+    () => {
       return generateAdminUserData();
     },
   );

@@ -31,27 +31,17 @@ export class UsersService {
     return user;
   }
 
-  async getUserList(query: any = null): Promise<UserEntity[]> {
-    let data: UserEntity[];
-    if (query !== null) {
-      data = await this.userRepository.find({
-        where: query,
-        select: ['id', 'role', 'name', 'email', 'active', 'created', 'updated'],
-        relations: ['book'],
-      });
-    } else {
-      data = await this.userRepository.find({
-        select: ['id', 'role', 'name', 'email', 'active', 'created', 'updated'],
-        relations: ['book'],
-      });
-    }
-
-    return data;
+  async getUserList(query: any = {}): Promise<UserEntity[]> {
+    return await this.userRepository.find({
+      where: query,
+      select: ['id', 'role', 'name', 'email', 'active', 'created', 'updated'],
+      relations: ['book'],
+    });
   }
 
   async updateInfo(
     dto: UserEntity | UpdateUserDto,
-    id: string = '',
+    id = '',
   ): Promise<UserEntity> {
     let data;
     //TODO this part was made like that because an ADMIN can update author

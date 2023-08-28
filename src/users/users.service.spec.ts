@@ -120,7 +120,6 @@ describe('UsersService', () => {
   });
 
   test('delere all users', async () => {
-    const id = '3774cdc2-1380-4300-9331-f9d05c1f0c8c';
     const userData = generateAdminsUsersData();
     const spy = jest
       .spyOn(service, 'deleteAllAuthors')
