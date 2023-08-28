@@ -27,13 +27,13 @@ CREATE TABLE IF NOT EXISTS users (
 DO
 $$
 DECLARE
-    lcount integer;
+    lcount VARCHAR := ''
 
 BEGIN    
-    SELECT COUNT(*) FROM users 
+    SELECT email FROM users 
     WHERE email = 'admin_user@gmail.com';
 
-    IF (lcount <= 0) then
+    IF (lcount = NULL) then
         INSERT INTO users (name, "lastName", email, password, role)
         VALUES (
         'admin_user', 

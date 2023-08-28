@@ -29,9 +29,6 @@
       
       steps:
         - uses: actions/checkout@v3
-        - uses: pnpm/action-setup@v2
-          with:
-            version: 8
 
         - name: Installing pnpm packages
           run: pnpm install
