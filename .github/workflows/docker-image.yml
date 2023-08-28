@@ -37,6 +37,9 @@ jobs:
         run: pnpm install
 
       - name: Run API to Create Tables
+        env:
+          PORT: ${{ secrets.PORT }}
+          DB_URL: ${{ secrets.DB_URL }}
         run: pnpm run start:dev
 
       - name: Install PostgreSQL client
