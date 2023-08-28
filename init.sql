@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS books (
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name VARCHAR,
-  lastName VARCHAR,
+  "lastName" VARCHAR,
   email VARCHAR UNIQUE NOT NULL,
   password VARCHAR NOT NULL,
   role VARCHAR NOT NULL,
