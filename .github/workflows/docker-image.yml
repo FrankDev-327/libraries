@@ -50,13 +50,10 @@ jobs:
             rm api_pid.txt
           fi
 
-      - name: Install PostgreSQL client
-        uses: docker://postgres:latest
-        with:
-          args: sudo apt-get update && sudo apt-get install --yes postgresql-client
-
-      - name: inserting admin user into database
-        run: psql ${{ secrets.DB_URL }} -a -f ../../init.sql
+      - uses: dentarg/postgres@v1
+      - run: psql ${{ secrets.DB_URL }} -a -f ../../init.sql
+        env: 
+          DATABASE_URL: "${{ secrets.DB_URL }}"
 
   docker:
     runs-on: ubuntu-latest
