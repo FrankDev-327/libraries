@@ -14,11 +14,11 @@ jobs:
         with:
           version: 8
 
-      - name: Running Eslint
-        run: pnpm run lint
-
       - name: Installing pnpm packages
         run: pnpm install
+
+      - name: Running Eslint
+        run: pnpm run lint
 
       - name: Running Test
         run: pnpm run test:cov
