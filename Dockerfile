@@ -1,28 +1,28 @@
-FROM node:alpine As development
+FROM node:alpine as development
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install --only=development
+RUN npm install
 
-COPY . .
+COPY . ./
 
 RUN npm run build
 
-FROM node:alpine as production
+FROM node:alpine as prod
 
-ARG NODE_ENV=production
+ARG NODE_ENV=prod
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install --only=production
+RUN npm install --only=prod
 
-COPY . .
-
+# Copy only the necessary files for production
 COPY --from=development /usr/src/app/dist ./dist
+COPY --from=development /usr/src/app/node_modules ./node_modules
 
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main"]
