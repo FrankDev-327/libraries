@@ -1,5 +1,4 @@
 import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
-console.log(process.env);
 
 export const typeormConfig: PostgresConnectionOptions = {
     type: 'postgres',
