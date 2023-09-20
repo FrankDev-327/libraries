@@ -25,4 +25,6 @@ RUN npm install --only=prod
 COPY --from=development /usr/src/app/dist ./dist
 COPY --from=development /usr/src/app/node_modules ./node_modules
 
+EXPOSE 8000
+
 CMD ["node", "dist/src/main"]
