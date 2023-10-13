@@ -15,7 +15,10 @@ export class BooksService {
     private bookRepository: Repository<BookEntity>,
   ) {}
 
-  async createBook(bookDto: CreateBookDto, currentUser: CurrentUserDto): Promise<BookEntity> {
+  async createBook(
+    bookDto: CreateBookDto,
+    currentUser: CurrentUserDto,
+  ): Promise<BookEntity> {
     //TODO this part was made like that because an ADMIN can create author's book or his own
     const userId = bookDto.userId !== '' ? bookDto.userId : currentUser.id;
 

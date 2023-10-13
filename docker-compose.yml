@@ -35,15 +35,18 @@ services:
       - prometheus
     links:
       - db
+    env_file:
+      - .env
     environment:
       NODE_ENV: dev
-      PORT: 8000
-      DB: "libraries"
-      DB_PORT: 5432
-      DB_PASSWORD: "postgres"
-      DB_USER_NAME: "postgres"
-      SECRET_KEY: "AjdK9iNwdPJRwmsGpt7tyGKBygRofWkW"
+      PORT: ${PORT}
+      DB: ${DB}
+      DB_PORT: ${DB_PORT}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USER_NAME: ${DB_USER_NAME}
+      SECRET_KEY: ${SECRET_KEY}
       DB_HOST: "db"
+      MONGO_DB: ${MONGO_DB}
     networks:
       - db-network
       - libraries-network
